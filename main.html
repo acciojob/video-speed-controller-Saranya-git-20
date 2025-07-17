@@ -12,19 +12,76 @@
     <div class="speed">
       <div class="speed-bar">1×</div>
     </div>
+	 <div class="controls">
+      <button class="player__button toggle" title="Toggle Play">►</button>
+      <button class="skip" data-skip="-10">« 10s</button>
+      <button class="skip" data-skip="25">25s »</button>
+
+      <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05">
+      <input type="range" name="playbackSpeed" class="player__slider" min="0.5" max="2" step="0.1">
+
+      <div class="progress">
+        <div class="progress__filled"></div>
+      </div>
+    </div>
   </div>
 
 <script  src="./script.js">
-  <div class="controls">
-  <label for="spacing">Spacing</label>
-  <input type="range" name="spacing" min="10" max="100" value="20" data-sizing="px">
+	const video = document.querySelector('.viewer');
+const toggle = document.querySelector('.toggle');
+const skipButtons = document.querySelectorAll('.skip');
+const volumeSlider = document.querySelector('input[name="volume"]');
+const speedSlider = document.querySelector('input[name="playbackSpeed"]');
+const progress = document.querySelector('.progress');
+const progressBar = document.querySelector('.progress__filled');
 
-  <label for="blur">Blur</label>
-  <input type="range" name="blur" min="0" max="10" value="2" data-sizing="px">
+// Toggle play/pause
+function togglePlay() {
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+}
 
-  <label for="base">Base Color</label>
-  <input type="color" name="base" value="#ffc600">
-</div>
+// Update play/pause button icon
+function updateButton() {
+  toggle.textContent = video.paused ? '►' : '❚ ❚';
+}
+
+// Skip functionality
+function skip() {
+  video.currentTime += parseFloat(this.dataset.skip);
+}
+
+// Volume and playback speed control
+function handleRangeUpdate() {
+  video[this.name] = parseFloat(this.value);
+}
+
+// Progress bar update
+function handleProgress() {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = `${percent}%`;
+}
+
+// Scrub through video
+function scrub(e) {
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+}
+
+// Event listeners
+video.addEventListener('click', togglePlay);
+video.addEventListener('play', updateButton);
+video.addEventListener('pause', updateButton);
+video.addEventListener('timeupdate', handleProgress);
+
+toggle.addEventListener('click', togglePlay);
+skipButtons.forEach(button => button.addEventListener('click', skip));
+volumeSlider.addEventListener('input', handleRangeUpdate);
+speedSlider.addEventListener('input', handleRangeUpdate);
+progress.addEventListener('click', scrub);
 </script>
 </body>
 </html>

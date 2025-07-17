@@ -1,20 +1,53 @@
-:root {
-  --spacing: 20px;
-  --blur: 2px;
-  --base: #ffc600;
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #222;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-img {
-  padding: var(--spacing);
-  background: var(--base);
-  filter: blur(var(--blur));
-  transition: all 0.2s;
+
+.viewer {
+  width: 100%;
+  max-height: 420px;
 }
 
 .controls {
-  margin-bottom: 20px;
   display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  background: #333;
+}
+
+.player__button,
+.skip {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.player__slider {
+  width: 100px;
+}
+
+.progress {
+  flex: 1;
+  height: 8px;
+  background: #555;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress__filled {
+  width: 0%;
+  background: #ff0;
+  height: 100%;
 }
