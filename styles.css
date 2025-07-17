@@ -1,2 +1,20 @@
+:root {
+  --spacing: 20px;
+  --blur: 2px;
+  --base: #ffc600;
+}
 
-/* Your CSS Code here. */
+img {
+  padding: var(--spacing);
+  background: var(--base);
+  filter: blur(var(--blur));
+  transition: all 0.2s;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
